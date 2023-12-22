@@ -1,0 +1,43 @@
+nav{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    background-color: aqua;
+    padding:20px 80px;
+}
+
+#navbar{
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+#navbar li{
+    list-style: none;
+    padding: 0 20px;
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 20px;    
+}
+
+#navbar li Link{
+    text-decoration: none;
+    font-size:1cm;
+    font-weight: 600;
+    color:azure;
+    transition: 0.3s ease-in-out;
+    
+}
+
+#navbar li Link hover {
+    
+    filter: blur(5px);
+    transition: 0.3s ease-in-out;
+
+}
+
+
+
+#navbar li a:hover{
+    color:aliceblue
+}
