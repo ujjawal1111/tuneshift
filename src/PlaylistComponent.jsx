@@ -17,6 +17,7 @@ const PlaylistComponent = () => {
         });
 
         setPlaylists(response.data);
+        console.log(response.data);
         setIsLoading(false);
       } catch (error) {
         console.error('Error fetching playlists:', error.message);
@@ -27,13 +28,24 @@ const PlaylistComponent = () => {
     fetchPlaylists();
   }, []);
 
-  const handlePlaylistClick = (playlistId) => {
-    // Store the selected playlist ID in localStorage
-    localStorage.setItem('selectedPlaylistId', playlistId);
+  const handlePlaylistClick = async (playlist) => {
+  try {
+    // Make a request to fetch the details of the selected playlist
+    const response = await axios.get(`http://localhost:5005/get-playlist-details/${playlist.id}`);
+    
+    const selectedPlaylistDetails = response.data; // Assuming the API returns relevant details
+
+    // Store the selected playlist details in local storage
+    localStorage.setItem('selectedPlaylistDetails', JSON.stringify(selectedPlaylistDetails));
+    localStorage.setItem('selectedPlaylistName', playlist.name);
 
     // Navigate to the Google Login page with the selected playlist ID
     navigate(`/google-login/`);
-  };
+  } catch (error) {
+    console.error('Error fetching playlist details:', error.message);
+  }
+};
+
 
   return (
     <div className="playlist-container">
@@ -42,7 +54,7 @@ const PlaylistComponent = () => {
       ) : (
         <div className="card-container">
           {playlists.map((playlist) => (
-            <div key={playlist.id} className="card" onClick={() => handlePlaylistClick(playlist.id)}>
+            <div key={playlist.id} className="card" onClick={() => handlePlaylistClick(playlist)}>
               <img
                 src={playlist.images.length > 0 ? playlist.images[0].url : 'default-image-url'}
                 alt={`Playlist: ${playlist.name}`}
