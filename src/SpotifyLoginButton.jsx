@@ -66,10 +66,11 @@ const SpotifyLoginButton = () => {
         code: authorizationCode,
       });
 
-      const { access_token, refresh_token } = tokenResponse.data;
+      const { spotifyUserId,access_token, refresh_token } = tokenResponse.data;
 
       // Now you can use the access token as needed
        console.log('Spotify Access Token:', access_token);
+       sessionStorage.setItem('spotifyUserId',spotifyUserId);
       // spotifytoken=access_token;
       setIsLoggedIn(true);
     } catch (error) {

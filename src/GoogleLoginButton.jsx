@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import PlaylistTransferButton from "./PlaylistTransferButton";
+import { useNavigate } from "react-router-dom";
+import PlaylistTransferToSpotify from "./PlaylistTransferToYoutube";
+import ViewGooglePlaylists from "./ViewGooglePlaylists";
 
 const GoogleLoginButton = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -12,6 +14,7 @@ const GoogleLoginButton = () => {
         const response = await axios.get("http://localhost:5005/check-google-access-token");
         const isLoggedIn = response.data.isLoggedIn;
         setIsLoggedIn(isLoggedIn);
+       // useNavigate('/native-login');
       } catch (error) {
         console.error("Error checking Google access token:", error.message);
       }
@@ -81,13 +84,14 @@ const GoogleLoginButton = () => {
       {isLoggedIn ? (
         <>
         <button
-          onClick={handleGoogleLogout}
           type="button"
-          className="p-12 text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-lg px-8 py-4 text-center me-2 mb-4 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+          onClick={handleGoogleLogout}
+          className="text-black bg-slate-200 mr-6 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Logout
+          
         </button>
-        <PlaylistTransferButton/>
+        <ViewGooglePlaylists/>
         </>
       ) : (
         // <button

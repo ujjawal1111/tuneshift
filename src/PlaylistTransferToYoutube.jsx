@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const PlaylistTransferButton = () => {
+const PlaylistTransferToYoutube = () => {
     const navigate = useNavigate();
 
-    let spotifyPlaylistName = localStorage.getItem('selectedPlaylistName');
+    let spotifyPlaylistName = sessionStorage.getItem('selectedPlaylistName');
   
 
 let songarray;
-let PlaylistObject = localStorage.getItem('selectedPlaylistDetails');
+let PlaylistObject = sessionStorage.getItem('selectedPlaylistDetails');
 let spotifyPlaylist = JSON.parse(PlaylistObject);
 //console.log(spotifyPlaylist)
 if (spotifyPlaylist && spotifyPlaylist.tracks) {
@@ -27,7 +27,11 @@ const temporaryHandleTransfer = async () => {
     console.log('Done with playlist transfer');
     // Handle the response data if needed
     console.log(response.data);
-     navigate('/transfer-complete', { state: { playlistUrl } });
+
+
+    sessionStorage.removeItem('selectedPlaylistName');
+    sessionStorage.removeItem('selectedPlaylistDetails');
+     navigate('/transfer-success', { state: { playlistUrl } });
   } catch (error) {
     console.error('Error:', error.message);
     // Handle the error more specifically if needed
@@ -44,4 +48,4 @@ const temporaryHandleTransfer = async () => {
   );
 };
 
-export default PlaylistTransferButton;
+export default PlaylistTransferToYoutube;

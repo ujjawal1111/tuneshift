@@ -36,11 +36,11 @@ const PlaylistComponent = () => {
     const selectedPlaylistDetails = response.data; // Assuming the API returns relevant details
 
     // Store the selected playlist details in local storage
-    localStorage.setItem('selectedPlaylistDetails', JSON.stringify(selectedPlaylistDetails));
-    localStorage.setItem('selectedPlaylistName', playlist.name);
+    sessionStorage.setItem('selectedPlaylistDetails', JSON.stringify(selectedPlaylistDetails));
+    sessionStorage.setItem('selectedPlaylistName', playlist.name);
 
-    // Navigate to the Google Login page with the selected playlist ID
-    navigate(`/google-login/`);
+    
+    navigate(`/transfer-to-youtube`);
   } catch (error) {
     console.error('Error fetching playlist details:', error.message);
   }
@@ -52,12 +52,12 @@ const PlaylistComponent = () => {
       {isLoading ? (
         <p>Loading playlists...</p>
       ) : (
-        <div className="card-container">
+        <div className="card-container bg-gradient-to-tr from-amber-200 to-yellow-500">
           {playlists.map((playlist) => (
             <div key={playlist.id} className="card" onClick={() => handlePlaylistClick(playlist)}>
               <img
                 src={playlist.images.length > 0 ? playlist.images[0].url : 'default-image-url'}
-                alt={`Playlist: ${playlist.name}`}
+                alt={'https://images.pexels.com/photos/5077396/pexels-photo-5077396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'}
               />
               <p className="playlist-name">{playlist.name}</p>
             </div>

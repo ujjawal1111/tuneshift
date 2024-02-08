@@ -4,15 +4,15 @@
 @tailwind utilities;
 
 /* Custom styles */
-body {
+/* body {
   margin: 0;
   padding: 0;
-  background-image: url('https://images.pexels.com/photos/459271/pexels-photo-459271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
-  background-size: cover;
-  background-position: center;
-}
+  /* background-image: url('https://images.pexels.com/photos/459271/pexels-photo-459271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+  background-size: cover; */
+  /* background-position: center;
+} */ */
 
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -50,7 +50,7 @@ body {
   to {
     transform: rotate(360deg);
   }
-}
+} */
 
 .primary {
   color: #61dafb;

@@ -10,10 +10,10 @@ import SpotifyLoginButton from './SpotifyLoginButton';
 const Home = () => {
   return (
     <div className= "h-screen flex">
-      <div class="w-1/2 p-4">
+      <div class="w-1/2 p-4 bg-gradient-to-bl from-yellow-200 to-amber-600">
         <h1 class="text-8xl font-bold">Playlist Converter</h1>
       <p className='text-4xl mt-6 mb-6'>Welcome to our playlist conversion tool</p>
-      <button className='text-4xl font-medium font-light bg-blue-500 rounded-full px-6 py-4'><Link to="spotify-login">Start Converting</Link></button>
+      <button className='text-4xl font-medium font-light bg-blue-500 rounded-full px-6 py-4'><Link to="native-login">Start Converting</Link></button>
     </div>
 
     <div className="w-1/2 overflow-hidden">

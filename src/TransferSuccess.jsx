@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
 
 export default function TransferSuccess() {
-  const location = useLocation();
-  const playlistUrl = location.state && location.state.playlistUrl;
+  const playlistUrl = sessionStorage.getItem("createdPlaylistUrl");
+  const playlistImageUrl=sessionStorage.getItem("createdPlaylistImageUrl");
   const [isCopied, setIsCopied] = useState(false);
 
   const copyToClipboard = async () => {
@@ -16,10 +15,16 @@ export default function TransferSuccess() {
   };
 
   return (
-    <div className="mt-10 mb-10 ml-10 mr-10">
-      <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <img className="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" />
-        <div className="p-5">
+    <div className="min-h-screen bg-gradient-to-tr from-teal-400 to-blue-800 flex items-center justify-center"
+      style={{ backgroundImage: `url('https://images.pexels.com/photos/4895620/pexels-photo-4895620.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')`, backgroundSize: 'cover' }}
+    >
+      <div className="max-w-lg bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <img
+          className="w-full rounded-t-lg w-full h-40 object-cover"
+          src={playlistImageUrl}
+          alt=""
+        />
+        <div className="p-10">
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Playlist Transfer Successful</h5>
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Thank You for using Tuneshift!</p>
           <div className="flex items-center mb-3">
@@ -27,7 +32,7 @@ export default function TransferSuccess() {
               type="text"
               value={playlistUrl}
               readOnly
-              className="flex-grow border p-2 rounded-md"
+              className="flex-grow border rounded-md"
             />
             <button
               onClick={copyToClipboard}
