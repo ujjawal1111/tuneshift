@@ -1,95 +1,66 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+// PlaylistComponent.js
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import './PlaylistComponent.css'; // Import your CSS file
 
-export default function PlaylistLinkButton() {
-  const [playlistLink, setPlaylistLink] = useState('');
-  const [playlistID, setPlaylistID] = useState('');
-  const [playlistDetails, setPlaylistDetails] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  const getPlaylistIdFromLink = (playlistLink) => {
-    const parts = playlistLink.split('/');
-    const playlistIndex = parts.indexOf('playlist');
-
-    if (playlistIndex !== -1 && parts[playlistIndex + 1]) {
-      return parts[playlistIndex + 1];
-    }
-
-    return null;
-  };
+const PlaylistComponent = () => {
+  const [playlists, setPlaylists] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const pId = getPlaylistIdFromLink(playlistLink);
-    setPlaylistID(pId);
-  }, [playlistLink]);
-
-  const playlistHandler = (ev) => {
-    setPlaylistLink(ev.target.value);
-  };
-
-  const handleSubmit = (ev) => {
-    ev.preventDefault();
-    // Fetch playlist details when the form is submitted
-    fetchPlaylistDetails();
-  };
-
-  const fetchPlaylistDetails = async () => {
-    try {
-      if (playlistID) {
-        const response = await axios.get(`http://localhost:5005/get-playlist-details/${playlistID}`);
-        setPlaylistDetails(response.data);
+    const fetchPlaylists = async () => {
+      try {
+        const response = await axios.get('http://localhost:5005/user-playlists');
+        setPlaylists(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching playlists:', error.message);
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.error('Error fetching playlist information:', error.message);
-    }
-  };
+    };
 
-  const transferToYTM = async () => {
+    fetchPlaylists();
+  }, []);
+
+  const handlePlaylistClick = async (playlist) => {
     try {
-      setLoading(true);
-      const response = await axios.post(`http://localhost:5005/transfer-to-youtube-music/${playlistID}`);
-      console.log('Transfer response:', response.data);
-      // You can handle the response as needed, such as showing a success message.
+      const response = await axios.get(`http://localhost:5005/get-playlist-details/${playlist.id}`);
+      const selectedPlaylistDetails = response.data;
+      sessionStorage.setItem('selectedPlaylistDetails', JSON.stringify(selectedPlaylistDetails));
+      sessionStorage.setItem('selectedPlaylistName', playlist.name);
+      navigate(`/transfer-to-youtube`);
     } catch (error) {
-      console.error('Error transferring playlist to YouTube Music:', error.message);
-      // You can handle the error, such as showing an error message.
-    } finally {
-      setLoading(false);
+      console.error('Error fetching playlist details:', error.message);
     }
   };
-
-
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <input
-          type='text'
-          placeholder='Enter Playlist Link'
-          value={playlistLink}
-          onChange={playlistHandler}
-        />
-        <button type="submit">Submit</button>
-      </form>
-
-      {playlistDetails && (
-        <div>
-          <h2>Playlist Details:</h2>
-          <p>Playlist Name: {playlistDetails.name}</p>
-
-          {/* Display playlist image if available */}
-          {playlistDetails.images && playlistDetails.images.length > 0 && (
-            <img
-              src={playlistDetails.images[0].url}
-              alt={playlistDetails.name}
-              style={{ width: '300px', height: '300px' }}
-            />
-          )}
-
-          
+    <div className="playlist-container bg-gradient-to-r from-amber-200 to-yellow-100">
+      {isLoading ? (
+        <p>Loading playlists...</p>
+      ) : (
+        <div className="card-container mt-8">
+          {playlists.map((playlist) => (
+            <div key={playlist.id} className="card" onClick={() => handlePlaylistClick(playlist)}>
+              <div className="overlay">
+                <button className="button">Button 1</button>
+                <button className="button">Button 2</button>
+              </div>
+              <img
+                src={playlist.images.length > 0 ? playlist.images[0].url : 'default-image-url'}
+                alt={'https://images.pexels.com/photos/5077396/pexels-photo-5077396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'}
+              />
+              <div className="card-content">
+                <p className="playlist-name p">{playlist.name}</p>
+              </div>
+            </div>
+          ))}
         </div>
       )}
-
-    </>
+    </div>
   );
-}
+};
+
+export default PlaylistComponent;

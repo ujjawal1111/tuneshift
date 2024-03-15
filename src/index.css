@@ -15,8 +15,8 @@ body {
   color: #fff;
   font-family: 'Arial', sans-serif; */
 
-  /* Add filter for brightness (adjust the value as needed) */
-  filter: brightness(70%);
+  
+  filter: brightness(80%);
 }
 
 /* Rest of your CSS code */

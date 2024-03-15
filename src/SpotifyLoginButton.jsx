@@ -30,6 +30,7 @@ const SpotifyLoginButton = () => {
       const authResponse = await axios.get('http://localhost:5005/spotify-auth');
 
       // Redirect to Spotify authorization
+      
       window.location.href = authResponse.data.spotifyAuthUrl;
     } catch (error) {
       console.error('Error initiating Spotify authentication:', error.message);
@@ -49,6 +50,7 @@ const SpotifyLoginButton = () => {
   };
 
   // Extract the authorization code from the URL after the user grants permission
+  
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const authorizationCode = urlParams.get('code');

@@ -27,6 +27,7 @@ const PlaylistCardDisplay = () => {
     // Save the playlist ID and name to local storage
     sessionStorage.setItem('youtubePlaylistId', playlist.id);
     sessionStorage.setItem('youtubePlaylistName', playlist.snippet.title);
+    sessionStorage.setItem('youtubePlaylistImage',playlist.snippet.thumbnails.medium.url);
   };
 
   const handleCloseModal = () => {
@@ -35,15 +36,15 @@ const PlaylistCardDisplay = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-tr from-teal-400 to-blue-800">
-      <div className="playlist-container">
+    <div className="bg-gradient-to-tr from-teal-400 to-blue-800">
+      <div className="playlist-container bg-gradient-to-tr from-teal-400 to-blue-800 py-6">
         {/* Render playlists as cards using the playlists state */}
         <div className="card-container">
           {playlists.map((playlist) => (
             <div key={playlist.id} className="card" onClick={() => handleCardClick(playlist)}>
               {/* Use the styles from PlaylistComponent.css */}
-              <img src={playlist.snippet.thumbnails.medium.url} alt={playlist.snippet.title} className="card-img" />
-              <p className="playlist-name">{playlist.snippet.title}</p>
+              <img src={playlist.snippet.thumbnails.medium.url} alt='https://images.pexels.com/photos/1389429/pexels-photo-1389429.jpeg' className="card-img" />
+              <p className="playlist-name ml-4">{playlist.snippet.title}</p>
             </div>
           ))}
         </div>

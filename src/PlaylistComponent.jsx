@@ -38,6 +38,8 @@ const PlaylistComponent = () => {
     // Store the selected playlist details in local storage
     sessionStorage.setItem('selectedPlaylistDetails', JSON.stringify(selectedPlaylistDetails));
     sessionStorage.setItem('selectedPlaylistName', playlist.name);
+    sessionStorage.setItem('selectedPlaylistImage', playlist.images.length > 0 ? playlist.images[0].url : '');
+
 
     
     navigate(`/transfer-to-youtube`);
@@ -46,20 +48,22 @@ const PlaylistComponent = () => {
   }
 };
 
-
-  return (
-    <div className="playlist-container">
+return (
+    <div className="playlist-container bg-gradient-to-r from-amber-200 to-yellow-100">
       {isLoading ? (
         <p>Loading playlists...</p>
       ) : (
-        <div className="card-container bg-gradient-to-tr from-amber-200 to-yellow-500">
+        
+        <div className="card-container mt-8">
           {playlists.map((playlist) => (
             <div key={playlist.id} className="card" onClick={() => handlePlaylistClick(playlist)}>
               <img
                 src={playlist.images.length > 0 ? playlist.images[0].url : 'default-image-url'}
                 alt={'https://images.pexels.com/photos/5077396/pexels-photo-5077396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'}
               />
-              <p className="playlist-name">{playlist.name}</p>
+              <div className="card-content ">
+                <p className="playlist-name p">{playlist.name}</p>
+              </div>
             </div>
           ))}
         </div>

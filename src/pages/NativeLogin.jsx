@@ -8,6 +8,11 @@ const Nativelogin = () => {
         
       {/* Left Side with Image */}
       <div className="w-1/2 relative bg-gradient-to-tr from-green-200 to-slate-500">
+        <img
+          className="w-full h-full object-cover rounded-r-md"
+          src="https://images.pexels.com/photos/4195325/pexels-photo-4195325.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          alt="Your Image"
+        />
         
         <div className="absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center">
           <div className="max-w-md mx-4 bg-gradient-to-r from-green-600 to-emerald-200 p-6 rounded-md shadow-md text-white rounded-2xl">
